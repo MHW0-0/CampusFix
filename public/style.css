@@ -1,1 +1,44 @@
-:root{font-family:Arial,sans-serif;color:#1d2d39;background:#f4f7fa}*{box-sizing:border-box}body{margin:0}.top{display:flex;align-items:center;justify-content:space-between;gap:20px;background:#fff;border-bottom:1px solid #dbe4eb;padding:18px max(24px,calc((100vw - 1000px)/2))}.brand{font-size:25px;font-weight:800;color:#17324b}.brand span{color:#148c84}nav{display:flex;gap:8px;flex-wrap:wrap}button{font:inherit;cursor:pointer;border-radius:8px;padding:11px 16px}.nav{background:transparent;border:0;color:#45596b}.nav.active{background:#e2f4f1;color:#08766e}main{max-width:1000px;margin:auto;padding:32px 24px}.intro{margin-bottom:26px}.eyebrow{color:#168a81;letter-spacing:2px;font-size:12px;font-weight:bold}h1{font-size:36px;margin:8px 0}.intro>p:last-child,.panel-head p{color:#607383}.panel{background:#fff;padding:28px;border-radius:14px;border:1px solid #e2e8ed;box-shadow:0 6px 20px #1b3a5010}.panel-head{margin-bottom:22px}.panel-head h2{margin:0}.hidden{display:none}form{display:flex;flex-direction:column;gap:11px;max-width:620px}label{font-weight:600;font-size:14px}input,select,textarea{width:100%;padding:12px;border:1px solid #bccbd5;border-radius:8px;font:inherit;background:#fff}textarea{resize:vertical}.primary{background:#148c84;color:#fff;border:0;font-weight:bold}.secondary{background:#fff;border:1px solid #148c84;color:#08766e;font-weight:bold}.primary:hover{background:#08766e}.secondary:hover{background:#e2f4f1}.message{margin:16px 0;color:#08766e}.message.error{color:#b42318}.inline-form{max-width:400px}.request-list{display:grid;gap:14px;margin-top:18px}.request-card{border:1px solid #dce5eb;border-radius:10px;padding:18px;margin-top:14px}.request-card h3{margin-top:0}.request-card select{max-width:260px;margin:8px 10px 8px 0}.status{font-weight:700;color:#08766e}.muted,.note{color:#647987;font-size:13px}footer{text-align:center;color:#7a8994;padding:28px}@media(max-width:650px){.top{align-items:flex-start;flex-direction:column}nav{width:100%}.nav{padding:10px}h1{font-size:28px}.panel{padding:20px}}
+/* CampusFix Sprint 1: simple student-designed interface */
+:root{font-family:Arial,Helvetica,sans-serif;color:#28352b;background:#f7f5ee}
+*{box-sizing:border-box}
+body{margin:0}
+.layout{min-height:100vh;display:flex}
+.top{width:240px;flex-shrink:0;background:#264b3c;color:white;padding:32px 20px;display:flex;flex-direction:column;gap:35px}
+.brand{font-size:29px;font-weight:700;letter-spacing:-1px;color:white}
+.brand span{color:#f4bd70}
+nav{display:flex;flex-direction:column;gap:10px}
+button{font:inherit;cursor:pointer;border-radius:6px;padding:12px 15px}
+.nav{background:transparent;border:1px solid transparent;color:white;text-align:left}
+.nav:hover{background:#355e4d}
+.nav.active{background:#f7f5ee;color:#264b3c;font-weight:700}
+.sidebar-note{font-size:13px;line-height:1.7;color:#d7e3d9;margin-top:auto}
+main{flex:1;min-width:0;max-width:1100px;margin:0 auto;padding:40px 45px}
+.intro{border-bottom:2px solid #e6e0d4;padding-bottom:22px;margin-bottom:28px}
+.eyebrow{color:#98612a;letter-spacing:1.5px;font-size:12px;font-weight:700}
+h1{font-size:33px;margin:10px 0;color:#264b3c}
+.intro>p:last-child,.panel-head p{color:#697268;line-height:1.6}
+.panel{background:white;border:1px solid #e5e0d6;border-radius:9px;padding:30px;box-shadow:3px 4px 0 #eee9df}
+.panel-head{margin-bottom:24px}
+.panel-head h2{font-size:23px;margin:0 0 6px;color:#264b3c}
+.hidden{display:none}
+form{display:flex;flex-direction:column;gap:12px;max-width:650px}
+label{font-weight:700;font-size:14px;margin-top:6px}
+input,select,textarea{width:100%;padding:12px;border:1px solid #c9cfc5;border-radius:5px;font:inherit;background:#fff}
+input:focus,select:focus,textarea:focus{outline:2px solid #a9c3b0;outline-offset:1px}
+textarea{resize:vertical}
+.primary{background:#d68b44;color:#202a20;border:1px solid #c37a37;font-weight:700;align-self:flex-start;margin-top:10px}
+.primary:hover{background:#e5a15e}
+.secondary{background:#f7f5ee;border:1px solid #80998b;color:#264b3c;font-weight:700}
+.secondary:hover{background:#e7eee8}
+.message{margin:18px 0;color:#2b6a45}
+.message.error{color:#b02d2d}
+.inline-form{max-width:430px}
+.request-list{display:grid;gap:12px;margin-top:20px}
+.request-card{border:1px solid #dedfd6;border-left:5px solid #d68b44;border-radius:5px;padding:18px;margin-top:12px;background:#fffefa}
+.request-card h3{margin:0 0 12px;color:#264b3c}
+.request-card p{line-height:1.5}
+.request-card select{max-width:260px;margin:10px 10px 10px 0}
+.status{font-weight:700;color:#326d4b}
+.muted,.note{color:#727b70;font-size:13px}
+footer{text-align:center;color:#8a8e84;padding:30px 0;font-size:13px}
+@media(max-width:760px){.layout{display:block}.top{width:auto;padding:20px;gap:16px}.sidebar-note{display:none}nav{flex-direction:row;flex-wrap:wrap}.nav{font-size:14px}main{padding:25px 18px}h1{font-size:27px}.panel{padding:20px}}
