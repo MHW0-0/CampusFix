@@ -113,7 +113,16 @@ async function loadMine() {
   message('mineMessage', 'Loading your requests…');
   const results = await Promise.allSettled(ids.map(id => api(`/api/requests/${id}`)));
   const items = results.filter(result => result.status === 'fulfilled').map(result => result.value);
-  message('mineMessage', `${items.length} saved request(s) found.`);
+  const statusKey = 'campusfix-last-statuses';
+  let previous = {};
+  try { previous = JSON.parse(localStorage.getItem(statusKey) || '{}') || {}; } catch {}
+  const changed = items.filter(item => previous[item.id] && previous[item.id] !== item.status);
+  const latest = { ...previous };
+  items.forEach(item => { latest[item.id] = item.status; });
+  localStorage.setItem(statusKey, JSON.stringify(latest));
+  message('mineMessage', changed.length
+    ? `${changed.length} request update(s)! ${changed.map(item => '#' + item.id + ' is now ' + item.status).join('; ')}`
+    : `${items.length} saved request(s) found. No new status changes.`);
   items.forEach(item => $('mineList').append(detailedCard(item)));
 }
 $('refreshMine').addEventListener('click', loadMine);
@@ -146,3 +155,8 @@ async function loadAdmin() {
 $('adminFilter').addEventListener('change', drawAdmin);
 $('refreshAdmin').addEventListener('click', loadAdmin);
 
+
+// Check for new updates while the student is viewing their request list.
+setInterval(() => {
+  if (!$('mine').classList.contains('hidden')) loadMine();
+}, 15000);
