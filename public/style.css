@@ -42,3 +42,14 @@ textarea{resize:vertical}
 .muted,.note{color:#746d7e;font-size:13px}
 footer{text-align:center;color:#898292;padding:30px 0;font-size:13px}
 @media(max-width:760px){.layout{display:block}.top{width:auto;padding:20px;gap:16px}.sidebar-note{display:none}nav{flex-direction:row;flex-wrap:wrap}.nav{font-size:14px}main{padding:25px 18px}h1{font-size:27px}.panel{padding:20px}}
+
+/* Sprint 2: request history and administration views */
+.summary-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:24px}
+.summary-tile{border:1px solid #e6e0ee;background:#faf8ff;border-radius:7px;padding:16px;display:flex;flex-direction:column;gap:6px}
+.summary-tile strong{font-size:26px;color:#63458f}
+.summary-tile span{font-size:13px;color:#655a76}
+.updates{background:#f4f0fa;padding:12px 15px;border-radius:6px;margin-top:15px}
+.updates h4{margin:0 0 10px;color:#63458f}
+.updates p{font-size:13px;margin:6px 0}
+#adminFilter{max-width:300px;margin:10px 12px 15px 0}
+@media(max-width:760px){.summary-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
