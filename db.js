@@ -15,6 +15,13 @@ function openDatabase(filename = path.join(__dirname, 'data', 'campusfix.db')) {
     created_at TEXT NOT NULL DEFAULT (datetime('now')),
     updated_at TEXT NOT NULL DEFAULT (datetime('now'))
   )`);
+  db.exec(`CREATE TABLE IF NOT EXISTS request_updates (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    request_id INTEGER NOT NULL,
+    status TEXT NOT NULL,
+    changed_at TEXT NOT NULL DEFAULT (datetime('now')),
+    FOREIGN KEY(request_id) REFERENCES maintenance_requests(id)
+  )`);
   return db;
 }
 function validateRequest(body) {
@@ -29,7 +36,9 @@ function createRequest(db, body) {
   if (error) throw new Error(error);
   const result = db.prepare('INSERT INTO maintenance_requests (category,description,location) VALUES (?,?,?)')
     .run(body.category, body.description.trim(), body.location.trim());
-  return getRequest(db, Number(result.lastInsertRowid));
+  const id = Number(result.lastInsertRowid);
+  db.prepare('INSERT INTO request_updates (request_id, status) VALUES (?, ?)').run(id, 'Pending');
+  return getRequest(db, id);
 }
 function getRequest(db, id) {
   return db.prepare('SELECT * FROM maintenance_requests WHERE id = ?').get(id) || null;
@@ -41,7 +50,16 @@ function updateStatus(db, id, status) {
   if (!allowedStatuses.includes(status)) throw new Error('Choose a valid status.');
   const request = getRequest(db, id);
   if (!request) return null;
-  db.prepare("UPDATE maintenance_requests SET status = ?, updated_at = datetime('now') WHERE id = ?").run(status, id);
+  if (request.status !== status) {
+    db.prepare("UPDATE maintenance_requests SET status = ?, updated_at = datetime('now') WHERE id = ?").run(status, id);
+    db.prepare('INSERT INTO request_updates (request_id, status) VALUES (?, ?)').run(id, status);
+  }
   return getRequest(db, id);
 }
-module.exports = { openDatabase, categories, allowedStatuses, validateRequest, createRequest, getRequest, listRequests, updateStatus };
+function getUpdates(db, id) {
+  if (!getRequest(db, id)) return null;
+  const updates = db.prepare('SELECT status, changed_at FROM request_updates WHERE request_id = ? ORDER BY id ASC').all(id);
+  // Requests created before Sprint 2 may not have an update record.
+  return updates.length ? updates : [{ status: getRequest(db, id).status, changed_at: getRequest(db, id).updated_at }];
+}
+module.exports = { openDatabase, categories, allowedStatuses, validateRequest, createRequest, getRequest, listRequests, updateStatus, getUpdates };
