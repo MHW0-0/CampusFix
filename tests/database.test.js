@@ -23,3 +23,17 @@ test('reject invalid inputs and status changes', () => {
     assert.equal(getRequest(db, 999), null);
   } finally { db.close(); }
 });
+
+test('Sprint 2 keeps a history of status updates', () => {
+  const { getUpdates } = require('../db');
+  const db = openDatabase(':memory:');
+  try {
+    const item = createRequest(db, { category: 'Plumbing', location: 'Building B', description: 'Water is leaking under the sink.' });
+    assert.deepEqual(getUpdates(db, item.id).map(row => row.status), ['Pending']);
+    updateStatus(db, item.id, 'In Progress');
+    updateStatus(db, item.id, 'In Progress'); // saving the same status creates no new event
+    updateStatus(db, item.id, 'Resolved');
+    assert.deepEqual(getUpdates(db, item.id).map(row => row.status), ['Pending', 'In Progress', 'Resolved']);
+    assert.equal(getUpdates(db, 999), null);
+  } finally { db.close(); }
+});
