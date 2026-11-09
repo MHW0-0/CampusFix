@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('node:path');
-const { openDatabase, createRequest, getRequest, listRequests, updateStatus } = require('./db');
+const { openDatabase, createRequest, getRequest, listRequests, updateStatus, getUpdates } = require('./db');
 const app = express();
 const db = openDatabase();
 app.disable('x-powered-by');
@@ -16,6 +16,11 @@ app.get('/api/requests/:id', (req, res) => {
   if (!validId(req.params.id)) return res.status(400).json({ error: 'Invalid request number.' });
   const item = getRequest(db, Number(req.params.id));
   return item ? res.json(item) : res.status(404).json({ error: 'Request not found.' });
+});
+app.get('/api/requests/:id/updates', (req, res) => {
+  if (!validId(req.params.id)) return res.status(400).json({ error: 'Invalid request number.' });
+  const updates = getUpdates(db, Number(req.params.id));
+  return updates ? res.json(updates) : res.status(404).json({ error: 'Request not found.' });
 });
 app.patch('/api/requests/:id/status', (req, res) => {
   if (!validId(req.params.id)) return res.status(400).json({ error: 'Invalid request number.' });
