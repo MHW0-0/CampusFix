@@ -1,0 +1,1 @@
+{"name":"campusfix","version":"1.0.0","private":true,"description":"CS388T CampusFix Sprint 1","scripts":{"start":"node server.js","test":"node --test tests/*.test.js"},"engines":{"node":">=22.13.0"},"dependencies":{"express":"^4.21.2"}}

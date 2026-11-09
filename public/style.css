@@ -1,0 +1,55 @@
+/* CampusFix Sprint 1: simple student-designed interface */
+:root{font-family:Arial,Helvetica,sans-serif;color:#373047;background:#f8f7fc}
+*{box-sizing:border-box}
+body{margin:0}
+.layout{min-height:100vh;display:flex}
+.top{width:240px;flex-shrink:0;background:#eee9f8;color:#373047;border-right:1px solid #ddd5ed;padding:32px 20px;display:flex;flex-direction:column;gap:35px}
+.brand{font-size:29px;font-weight:700;letter-spacing:-1px;color:#373047}
+.brand span{color:#63458f}
+nav{display:flex;flex-direction:column;gap:10px}
+button{font:inherit;cursor:pointer;border-radius:6px;padding:12px 15px}
+.nav{background:transparent;border:1px solid transparent;color:#4d4264;text-align:left}
+.nav:hover{background:#ded5f0}
+.nav.active{background:#6c4e98;color:#ffffff;font-weight:700}
+.sidebar-note{font-size:13px;line-height:1.7;color:#655a76;margin-top:auto}
+main{flex:1;min-width:0;max-width:1100px;margin:0 auto;padding:40px 45px}
+.intro{border-bottom:2px solid #e9e5f0;padding-bottom:22px;margin-bottom:28px}
+.eyebrow{color:#7e65a7;letter-spacing:1.5px;font-size:12px;font-weight:700}
+h1{font-size:33px;margin:10px 0;color:#655184}
+.intro>p:last-child,.panel-head p{color:#6e687a;line-height:1.6}
+.panel{background:white;border:1px solid #e7e2ef;border-radius:9px;padding:30px;box-shadow:3px 4px 0 #f0edf5}
+.panel-head{margin-bottom:24px}
+.panel-head h2{font-size:23px;margin:0 0 6px;color:#655184}
+.hidden{display:none}
+form{display:flex;flex-direction:column;gap:12px;max-width:650px}
+label{font-weight:700;font-size:14px;margin-top:6px}
+input,select,textarea{width:100%;padding:12px;border:1px solid #d4cde0;border-radius:5px;font:inherit;background:#fff}
+input:focus,select:focus,textarea:focus{outline:2px solid #aa96cb;outline-offset:1px}
+textarea{resize:vertical}
+.primary{background:#6c4e98;color:#ffffff;border:1px solid #6c4e98;font-weight:700;align-self:flex-start;margin-top:10px}
+.primary:hover{background:#8c73b9}
+.secondary{background:#f8f7fc;border:1px solid #a18acb;color:#655184;font-weight:700}
+.secondary:hover{background:#efebf7}
+.message{margin:18px 0;color:#655184}
+.message.error{color:#b02d2d}
+.inline-form{max-width:430px}
+.request-list{display:grid;gap:12px;margin-top:20px}
+.request-card{border:1px solid #e6e0ee;border-left:5px solid #a18acb;border-radius:5px;padding:18px;margin-top:12px;background:#fcfbff}
+.request-card h3{margin:0 0 12px;color:#655184}
+.request-card p{line-height:1.5}
+.request-card select{max-width:260px;margin:10px 10px 10px 0}
+.status{font-weight:700;color:#705b98}
+.muted,.note{color:#746d7e;font-size:13px}
+footer{text-align:center;color:#898292;padding:30px 0;font-size:13px}
+@media(max-width:760px){.layout{display:block}.top{width:auto;padding:20px;gap:16px}.sidebar-note{display:none}nav{flex-direction:row;flex-wrap:wrap}.nav{font-size:14px}main{padding:25px 18px}h1{font-size:27px}.panel{padding:20px}}
+
+/* Sprint 2: request history and administration views */
+.summary-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:24px}
+.summary-tile{border:1px solid #e6e0ee;background:#faf8ff;border-radius:7px;padding:16px;display:flex;flex-direction:column;gap:6px}
+.summary-tile strong{font-size:26px;color:#63458f}
+.summary-tile span{font-size:13px;color:#655a76}
+.updates{background:#f4f0fa;padding:12px 15px;border-radius:6px;margin-top:15px}
+.updates h4{margin:0 0 10px;color:#63458f}
+.updates p{font-size:13px;margin:6px 0}
+#adminFilter{max-width:300px;margin:10px 12px 15px 0}
+@media(max-width:760px){.summary-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
