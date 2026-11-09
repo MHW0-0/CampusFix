@@ -55,7 +55,12 @@ $('trackForm').addEventListener('submit', async (event) => {
   event.preventDefault();
   $('trackResult').replaceChildren();
   message('trackMessage', 'Looking up request…');
-  try { const item = await api(`/api/requests/${encodeURIComponent($('requestId').value)}`); message('trackMessage', 'Request found.'); $('trackResult').append(requestCard(item)); }
+  try {
+    const item = await api(`/api/requests/${encodeURIComponent($('requestId').value)}`);
+    rememberRequest(item.id);
+    message('trackMessage', 'Request found.');
+    $('trackResult').append(detailedCard(item));
+  }
   catch (err) { message('trackMessage', err.message, true); }
 });
 async function loadRequests() {
@@ -141,24 +146,3 @@ async function loadAdmin() {
 $('adminFilter').addEventListener('change', drawAdmin);
 $('refreshAdmin').addEventListener('click', loadAdmin);
 
-// Also show update history after tracking a request by number.
-const originalTrackSubmit = $('trackForm');
-originalTrackSubmit.addEventListener('submit', () => {
-  // The original submit handler runs first; this handler uses the same request number.
-  const id = Number($('requestId').value);
-  if (Number.isSafeInteger(id) && id > 0) {
-    api(`/api/requests/${id}`).then(() => {
-      rememberRequest(id);
-      // Wait for the existing handler to render the card via its own request.
-      return api(`/api/requests/${id}/updates`);
-    }).then(updates => {
-      const card = $('trackResult').querySelector('.request-card');
-      if (card && !card.querySelector('.updates')) {
-        const area = element('div', undefined, 'updates');
-        area.append(element('h4', 'Status updates'));
-        updates.forEach(update => area.append(element('p', `${update.changed_at}: ${update.status}`)));
-        card.append(area);
-      }
-    }).catch(() => {});
-  }
-});
